@@ -1,0 +1,2 @@
+# golib
+Golang library
