@@ -2,7 +2,7 @@ package nethttp
 
 import (
 	"context"
-	httpclient "github.com/paulusrobin/gogen-lib/http-client"
+	httpclient "github.com/paulusrobin/gogen-lib/http-client/interface"
 	"net/http"
 )
 
