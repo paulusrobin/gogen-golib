@@ -24,12 +24,14 @@ type (
 	}
 )
 
+// SetConsulRemote function to set consul remote host token.
 func (c *Config) SetConsulRemote() {
 	if os.Getenv("CONSUL_HTTP_TOKEN") == "" && c.Connection.Token != "" {
 		_ = os.Setenv("CONSUL_HTTP_TOKEN", c.Connection.Token)
 	}
 }
 
+// GetConsulRemote function to get consul remote host.
 func (c *Config) GetConsulRemote() string {
 	if c.Connection.Host == "" {
 		c.Connection.Host = os.Getenv("CONSUL_HOST")
