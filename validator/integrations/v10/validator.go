@@ -3,7 +3,7 @@ package v10
 import (
 	ut "github.com/go-playground/universal-translator"
 	v10 "github.com/go-playground/validator/v10"
-	validator2 "github.com/paulusrobin/gogen-golib/validator/interface"
+	"github.com/paulusrobin/gogen-golib/validator"
 )
 
 const (
@@ -24,7 +24,7 @@ func (v validatorInstance) Struct(s interface{}) error {
 		return nil
 	}
 
-	var err = validator2.ValidationError{
+	var err = validator.ValidationError{
 		Message: defaultMessage,
 		Details: make([]string, 0),
 		detail:  make(map[string]string),
