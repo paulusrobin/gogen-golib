@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gojek/heimdall/v7 v7.0.2
-	github.com/paulusrobin/gogen-golib/http-client/interface v0.0.0-20220708235924-9c2ce8534e56
+	github.com/paulusrobin/gogen-golib/http-client/interface v0.0.0-20220709001715-f945a568eddb
 )
 
 require (
@@ -19,3 +19,5 @@ require (
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
 )
+
+replace github.com/paulusrobin/gogen-golib/http-client/interface => ./../../interface

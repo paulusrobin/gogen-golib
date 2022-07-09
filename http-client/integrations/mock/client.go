@@ -2,7 +2,7 @@ package httpclientmock
 
 import (
 	"context"
-	httpclient "github.com/paulusrobin/gogen-golib/http-client"
+	httpclient "github.com/paulusrobin/gogen-golib/http-client/interface"
 	"net/http"
 )
 

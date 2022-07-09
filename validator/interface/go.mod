@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/validator
+module github.com/paulusrobin/gogen-golib/validator/interface
 
 go 1.18
 
