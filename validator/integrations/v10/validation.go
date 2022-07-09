@@ -5,6 +5,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	validatorV10 "github.com/go-playground/validator/v10"
 	enTranslation "github.com/go-playground/validator/v10/translations/en"
+	"github.com/paulusrobin/gogen-golib/validator"
 	"github.com/rs/zerolog/log"
 	"sync"
 )
@@ -19,7 +20,7 @@ type (
 )
 
 // Validator function implement Validation interface to get locale validator.
-func (v *validation) Validator(locale string) Validator {
+func (v *validation) Validator(locale string) validator.Validator {
 	v.Lock()
 	defer v.Unlock()
 

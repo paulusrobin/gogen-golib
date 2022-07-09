@@ -11,14 +11,14 @@ const (
 )
 
 type (
-	validator struct {
+	validatorInstance struct {
 		validate   *v10.Validate
 		translator ut.Translator
 	}
 )
 
 // Struct validates a structs exposed fields.
-func (v validator) Struct(s interface{}) error {
+func (v validatorInstance) Struct(s interface{}) error {
 	validationErr := v.validate.Struct(s)
 	if validationErr == nil {
 		return nil
