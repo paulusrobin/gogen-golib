@@ -1,20 +1,17 @@
-package validator
+package v10
 
 import (
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
-	v10 "github.com/go-playground/validator/v10"
+	validatorV10 "github.com/go-playground/validator/v10"
 	enTranslation "github.com/go-playground/validator/v10/translations/en"
 	"github.com/rs/zerolog/log"
 	"sync"
 )
 
 type (
-	Validation interface {
-		Validator(locale string) Validator
-	}
 	validation struct {
-		validate            *v10.Validate
+		validate            *validatorV10.Validate
 		universalTranslator *ut.UniversalTranslator
 		validators          map[string]Validator
 		sync.Mutex
@@ -64,12 +61,12 @@ func (v *validation) registerTranslation(translation ValidationTranslation) {
 // NewValidation function to initialize Validation.
 func NewValidation(translations ...ValidationTranslation) Validation {
 	defaultTranslation := NewValidationTranslation(en.New(),
-		func(validate *v10.Validate, translator ut.Translator) error {
+		func(validate *validatorV10.Validate, translator ut.Translator) error {
 			return enTranslation.RegisterDefaultTranslations(validate, translator)
 		})
 
 	v := &validation{
-		validate:            v10.New(),
+		validate:            validatorV10.New(),
 		universalTranslator: ut.New(defaultTranslation.Translator()),
 	}
 	v.registerTranslation(defaultTranslation)

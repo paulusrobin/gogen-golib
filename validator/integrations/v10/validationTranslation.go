@@ -1,4 +1,4 @@
-package validator
+package v10
 
 import (
 	"github.com/go-playground/locales"
@@ -7,11 +7,6 @@ import (
 )
 
 type (
-	ValidationTranslation interface {
-		Translator() locales.Translator
-		Register(validate *v10.Validate, translator ut.Translator) error
-	}
-
 	validationTranslation struct {
 		translator locales.Translator
 		register   func(validate *v10.Validate, translator ut.Translator) error

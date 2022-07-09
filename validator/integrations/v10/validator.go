@@ -1,8 +1,9 @@
-package validator
+package v10
 
 import (
 	ut "github.com/go-playground/universal-translator"
 	v10 "github.com/go-playground/validator/v10"
+	validator2 "github.com/paulusrobin/gogen-golib/validator/interface"
 )
 
 const (
@@ -10,10 +11,6 @@ const (
 )
 
 type (
-	Validator interface {
-		Struct(s interface{}) error
-	}
-
 	validator struct {
 		validate   *v10.Validate
 		translator ut.Translator
@@ -27,7 +24,7 @@ func (v validator) Struct(s interface{}) error {
 		return nil
 	}
 
-	var err = ValidationError{
+	var err = validator2.ValidationError{
 		Message: defaultMessage,
 		Details: make([]string, 0),
 		detail:  make(map[string]string),
