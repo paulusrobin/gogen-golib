@@ -21,6 +21,14 @@ func (ve ValidationError) Detail() map[string]string {
 	return ve.detail
 }
 
+// SetDetail function to set map detail of ValidationError.
+func (ve *ValidationError) SetDetail(key, value string) {
+	if ve.detail == nil {
+		ve.detail = make(map[string]string)
+	}
+	ve.detail[key] = value
+}
+
 // IsValidationError function convert error as ValidationError.
 func IsValidationError(err error) (ValidationError, bool) {
 	var validationErr ValidationError

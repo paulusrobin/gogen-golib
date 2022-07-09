@@ -3,13 +3,13 @@ package v10
 import (
 	"github.com/go-playground/locales"
 	ut "github.com/go-playground/universal-translator"
-	v10 "github.com/go-playground/validator/v10"
+	validator "github.com/paulusrobin/gogen-golib/validator/interface"
 )
 
 type (
 	validationTranslation struct {
 		translator locales.Translator
-		register   func(validate *v10.Validate, translator ut.Translator) error
+		register   func(translator ut.Translator) error
 	}
 )
 
@@ -19,14 +19,14 @@ func (v validationTranslation) Translator() locales.Translator {
 }
 
 // Register getter function to implement ValidationTranslation.
-func (v validationTranslation) Register(validate *v10.Validate, translator ut.Translator) error {
-	return v.register(validate, translator)
+func (v validationTranslation) Register(translator ut.Translator) error {
+	return v.register(translator)
 }
 
 // NewValidationTranslation function to initialize ValidationTranslation interface.
 func NewValidationTranslation(
 	translator locales.Translator,
-	register func(validate *v10.Validate, translator ut.Translator) error,
-) ValidationTranslation {
+	register func(translator ut.Translator) error,
+) validator.ValidationTranslation {
 	return &validationTranslation{translator: translator, register: register}
 }

@@ -5,7 +5,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	validatorV10 "github.com/go-playground/validator/v10"
 	enTranslation "github.com/go-playground/validator/v10/translations/en"
-	"github.com/paulusrobin/gogen-golib/validator"
+	validator "github.com/paulusrobin/gogen-golib/validator/interface"
 	"github.com/rs/zerolog/log"
 	"sync"
 )
@@ -14,7 +14,7 @@ type (
 	validation struct {
 		validate            *validatorV10.Validate
 		universalTranslator *ut.UniversalTranslator
-		validators          map[string]Validator
+		validators          map[string]validator.Validator
 		sync.Mutex
 	}
 )
@@ -33,7 +33,7 @@ func (v *validation) Validator(locale string) validator.Validator {
 		log.Warn().Msgf("translator %s not found, use fallback translation")
 	}
 
-	response := &validator{
+	response := &validatorInstance{
 		validate:   v.validate,
 		translator: translator,
 	}
@@ -41,7 +41,7 @@ func (v *validation) Validator(locale string) validator.Validator {
 	return response
 }
 
-func (v *validation) registerTranslation(translation ValidationTranslation) {
+func (v *validation) registerTranslation(translation validator.ValidationTranslation) {
 	if err := v.universalTranslator.AddTranslator(translation.Translator(), true); err != nil {
 		log.Warn().Msgf("failed to add %s translator", translation.Translator().Locale())
 		return
@@ -53,22 +53,25 @@ func (v *validation) registerTranslation(translation ValidationTranslation) {
 		return
 	}
 
-	if err := translation.Register(v.validate, translator); err != nil {
+	if err := translation.Register(translator); err != nil {
 		log.Warn().Msgf("failed to register %s translator", translation.Translator().Locale())
 		return
 	}
 }
 
 // NewValidation function to initialize Validation.
-func NewValidation(translations ...ValidationTranslation) Validation {
+func NewValidation(translations ...validator.ValidationTranslation) validator.Validation {
+	validate := validatorV10.New()
+	defaultLocaleTranslator := en.New()
+	universalTranslator := ut.New(defaultLocaleTranslator)
 	defaultTranslation := NewValidationTranslation(en.New(),
-		func(validate *validatorV10.Validate, translator ut.Translator) error {
+		func(translator ut.Translator) error {
 			return enTranslation.RegisterDefaultTranslations(validate, translator)
 		})
 
 	v := &validation{
-		validate:            validatorV10.New(),
-		universalTranslator: ut.New(defaultTranslation.Translator()),
+		validate:            validate,
+		universalTranslator: universalTranslator,
 	}
 	v.registerTranslation(defaultTranslation)
 
