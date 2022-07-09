@@ -1,7 +1,7 @@
 package nethttp
 
 import (
-	httpclient "github.com/paulusrobin/gogen-lib/http-client/interface"
+	httpclient "github.com/paulusrobin/gogen-golib/http-client/interface"
 	"net/http"
 	"time"
 )
