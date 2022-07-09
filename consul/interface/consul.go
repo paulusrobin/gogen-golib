@@ -8,17 +8,35 @@ import (
 )
 
 type (
+	// ConnectionConfig object contains consul connection settings.
 	ConnectionConfig struct {
-		Host  string
-		Port  int
+		// Host config to set consul host.
+		Host string
+
+		// Port config to set consul port.
+		Port int
+
+		// Token config to set consul http token.
 		Token string
-		Key   string
+
+		// Key consul key path to be read.
+		Key string
 	}
+
+	// Config object to be passed on initialization.
 	Config struct {
+		// Connection config type to be passed.
 		Connection ConnectionConfig
+
+		// ConfigType config type to be passed.
 		ConfigType string
-		Interval   time.Duration
+
+		// Interval to run update periodically
+		// default 0, it will not run periodically background process to update
+		Interval time.Duration
 	}
+
+	// Reader interface to read consul settings.
 	Reader interface {
 		Read(data interface{}) error
 	}
