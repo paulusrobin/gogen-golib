@@ -1,9 +1,9 @@
-module github.com/paulusrobin/gogen-golib/consul/viper
+module github.com/paulusrobin/gogen-golib/remote-config/consul/viper
 
 go 1.18
 
 require (
-	github.com/paulusrobin/gogen-golib/consul/interface v0.0.0-20220709011247-9f8c408b6a41
+	github.com/paulusrobin/gogen-golib/remote-config/consul/interface v0.0.0-20220709011247-9f8c408b6a41
 	github.com/rs/zerolog v1.27.0
 	github.com/spf13/viper v1.12.0
 )
@@ -71,4 +71,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.0 // indirect
 )
 
-replace github.com/paulusrobin/gogen-golib/consul/interface => ./../../interface
+replace github.com/paulusrobin/gogen-golib/remote-config/consul/interface => ./../../interface

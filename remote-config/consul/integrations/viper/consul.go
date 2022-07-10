@@ -1,7 +1,7 @@
 package viper
 
 import (
-	consul "github.com/paulusrobin/gogen-golib/consul/interface"
+	consul "github.com/paulusrobin/gogen-golib/remote-config/consul/interface"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 	_ "github.com/spf13/viper/remote" // needed to use viper remote config features
