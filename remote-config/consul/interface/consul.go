@@ -8,7 +8,7 @@ import (
 )
 
 type (
-	// ConnectionConfig object contains consul connection settings.
+	// ConnectionConfig mandatory contains consul connection settings.
 	ConnectionConfig struct {
 		// Host config to set consul host.
 		Host string
@@ -23,7 +23,7 @@ type (
 		Key string
 	}
 
-	// Config object to be passed on initialization.
+	// Config mandatory to be passed on initialization.
 	Config struct {
 		// Connection config type to be passed.
 		Connection ConnectionConfig

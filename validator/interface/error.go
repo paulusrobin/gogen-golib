@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-// ValidationError error object returned from validation.
+// ValidationError error mandatory returned from validation.
 type ValidationError struct {
 	Message string   `json:"message" xml:"message"`
 	Details []string `json:"details,omitempty" xml:"details,omitempty"`
