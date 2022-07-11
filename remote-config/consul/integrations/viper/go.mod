@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/remote-config/consul/viper
+module github.com/paulusrobin/gogen-golib/consul/viper
 
 go 1.18
 
