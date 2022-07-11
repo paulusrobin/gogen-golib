@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/http-client/net-http
+module github.com/paulusrobin/gogen-golib/http-client/integrations/net-http
 
 go 1.18
 

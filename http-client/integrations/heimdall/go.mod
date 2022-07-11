@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/http-client/heimdall
+module github.com/paulusrobin/gogen-golib/http-client/integrations/heimdall
 
 go 1.18
 

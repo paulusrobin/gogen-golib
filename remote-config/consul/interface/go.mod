@@ -1,3 +1,3 @@
-module github.com/paulusrobin/gogen-golib/consul/interface
+module github.com/paulusrobin/gogen-golib/remote-config/consul/interface
 
 go 1.18

@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/http-client/mock
+module github.com/paulusrobin/gogen-golib/http-client/integrations/mock
 
 go 1.18
 
