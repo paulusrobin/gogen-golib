@@ -1,4 +1,4 @@
-module github.com/paulusrobin/gogen-golib/validator/v10
+module github.com/paulusrobin/gogen-golib/validator/go-v10
 
 go 1.18
 
