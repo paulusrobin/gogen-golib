@@ -1,4 +1,4 @@
-package v10
+package goPlaygroundV10
 
 import (
 	ut "github.com/go-playground/universal-translator"

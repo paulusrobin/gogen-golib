@@ -1,4 +1,4 @@
-package v10
+package goPlaygroundV10
 
 import (
 	"github.com/go-playground/locales"
