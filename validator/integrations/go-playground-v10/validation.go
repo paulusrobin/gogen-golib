@@ -72,6 +72,7 @@ func NewValidation(translations ...validator.ValidationTranslation) validator.Va
 	v := &validation{
 		validate:            validate,
 		universalTranslator: universalTranslator,
+		validators:          make(map[string]validator.Validator),
 	}
 	v.registerTranslation(defaultTranslation)
 
