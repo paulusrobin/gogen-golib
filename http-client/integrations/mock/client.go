@@ -1,7 +1,6 @@
 package httpclientmock
 
 import (
-	"context"
 	httpclient "github.com/paulusrobin/gogen-golib/http-client/interface"
 	"net/http"
 )
@@ -13,12 +12,12 @@ type (
 	}
 )
 
-// Do function implements httpclient.Client.
-func (c client) Do(ctx context.Context, request *http.Request) (*http.Response, error) {
+// Do function implements httpclient.ClientDoer
+func (c client) Do(request *http.Request) (*http.Response, error) {
 	return c.response, c.err
 }
 
 // NewMockHTTPClient function to initialize httpclient.mock
-func NewMockHTTPClient(response *http.Response, err error) httpclient.Client {
+func NewMockHTTPClient(response *http.Response, err error) httpclient.ClientDoer {
 	return client{response: response, err: err}
 }

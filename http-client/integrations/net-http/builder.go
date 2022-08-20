@@ -9,7 +9,7 @@ import (
 type (
 	Builder interface {
 		WithTimeout(duration time.Duration) Builder
-		Build() httpclient.Client
+		Build() httpclient.ClientDoer
 	}
 )
 
@@ -31,6 +31,6 @@ func (b *builder) WithTimeout(duration time.Duration) Builder {
 }
 
 // Build function to instantiate http net http client.
-func (b builder) Build() httpclient.Client {
+func (b builder) Build() httpclient.ClientDoer {
 	return NewClient(b.client)
 }
