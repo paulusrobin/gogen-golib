@@ -67,6 +67,14 @@ func NewValidation(options ...ValidationOption) validator.Validation {
 	}
 
 	validate := validatorV10.New()
+	for tagName, fn := range opt.customFieldValidator {
+		_ = validate.RegisterValidation(tagName, fn)
+	}
+
+	for _, fn := range opt.customStructValidator {
+		validate.RegisterStructValidation(fn)
+	}
+
 	defaultLocaleTranslator := en.New()
 	universalTranslator := ut.New(defaultLocaleTranslator)
 	defaultTranslation := NewValidationTranslation(en.New(),
