@@ -60,7 +60,12 @@ func (v *validation) registerTranslation(translation validator.ValidationTransla
 }
 
 // NewValidation function to initialize Validation.
-func NewValidation(translations ...validator.ValidationTranslation) validator.Validation {
+func NewValidation(options ...ValidationOption) validator.Validation {
+	opt := defaultOption
+	for _, option := range options {
+		option.Apply(&opt)
+	}
+
 	validate := validatorV10.New()
 	defaultLocaleTranslator := en.New()
 	universalTranslator := ut.New(defaultLocaleTranslator)
@@ -76,7 +81,7 @@ func NewValidation(translations ...validator.ValidationTranslation) validator.Va
 	}
 	v.registerTranslation(defaultTranslation)
 
-	for _, translation := range translations {
+	for _, translation := range opt.translations {
 		v.registerTranslation(translation)
 	}
 	return v
