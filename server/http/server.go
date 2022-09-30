@@ -6,8 +6,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	goPlaygroundV10 "github.com/paulusrobin/gogen-golib/validator/integrations/go-playground-v10"
-	validator "github.com/paulusrobin/gogen-golib/validator/interface"
 	"github.com/rs/zerolog/log"
 	"os"
 	"syscall"
@@ -24,16 +22,13 @@ type (
 		opt options
 
 		// dependencies
-		ec         *echo.Echo
-		validation validator.Validation
+		ec *echo.Echo
 	}
 )
 
 // init function to initialize dependencies.
 func (s *httpServer) init() error {
-	// initialize validator
 	s.ec = echo.New()
-	s.validation = goPlaygroundV10.NewValidation()
 	return nil
 }
 
