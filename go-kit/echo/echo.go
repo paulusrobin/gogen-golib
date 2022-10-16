@@ -11,7 +11,8 @@ func Handler(ep endpoint.Endpoint, opts ...Option) func(c echo.Context) error {
 	for _, opt := range opts {
 		opt.Apply(&settings)
 	}
-	return func(c echo.Context) error {
+
+	next := func(c echo.Context) error {
 		errFunc := func(err error) error {
 			if settings.errorHandler != nil {
 				return settings.errorHandler(c, err)
@@ -31,4 +32,8 @@ func Handler(ep endpoint.Endpoint, opts ...Option) func(c echo.Context) error {
 
 		return settings.encoder(c, response)
 	}
+	for i := len(settings.middlewares) - 1; i >= 0; i-- {
+		next = settings.middlewares[i](next)
+	}
+	return next
 }

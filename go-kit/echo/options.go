@@ -12,6 +12,7 @@ type (
 	options struct {
 		encoder      func(c echo.Context, response interface{}) error
 		decoder      func(c echo.Context) (interface{}, error)
+		middlewares  []echo.MiddlewareFunc
 		errorHandler func(c echo.Context, err error) error
 	}
 )
@@ -26,6 +27,7 @@ var (
 	defaultOptions = options{
 		encoder:      defaultEncoder,
 		decoder:      defaultDecoder,
+		middlewares:  make([]echo.MiddlewareFunc, 0),
 		errorHandler: nil,
 	}
 )
@@ -61,4 +63,15 @@ func (w withErrorHandler) Apply(o *options) {
 
 func WithErrorHandler(errorHandler func(c echo.Context, err error) error) Option {
 	return withErrorHandler(errorHandler)
+}
+
+// Middleware Option
+type withMiddleware []echo.MiddlewareFunc
+
+func (w withMiddleware) Apply(o *options) {
+	o.middlewares = append(o.middlewares, w...)
+}
+
+func WithMiddleware(middlewares ...echo.MiddlewareFunc) Option {
+	return withMiddleware(middlewares)
 }
