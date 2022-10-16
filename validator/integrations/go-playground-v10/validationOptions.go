@@ -1,13 +1,18 @@
 package goPlaygroundV10
 
 import (
+	"github.com/go-playground/locales"
+	ut "github.com/go-playground/universal-translator"
 	v10 "github.com/go-playground/validator/v10"
-	validator "github.com/paulusrobin/gogen-golib/validator/interface"
 )
 
 type (
+	TranslationOption struct {
+		Translator locales.Translator
+		Register   func(v *v10.Validate, translator ut.Translator) error
+	}
 	validationOptions struct {
-		translations          map[string]validator.ValidationTranslation
+		translations          map[string]TranslationOption
 		customFieldValidator  map[string]func(fl v10.FieldLevel) bool
 		customStructValidator map[string]func(sl v10.StructLevel)
 	}
@@ -17,19 +22,19 @@ type (
 )
 
 var defaultOption = validationOptions{
-	translations:          make(map[string]validator.ValidationTranslation),
+	translations:          make(map[string]TranslationOption),
 	customFieldValidator:  make(map[string]func(fl v10.FieldLevel) bool),
 	customStructValidator: make(map[string]func(sl v10.StructLevel)),
 }
 
-func (option *validationOptions) addTranslations(translations ...validator.ValidationTranslation) {
+func (option *validationOptions) addTranslations(translations ...TranslationOption) {
 	for _, translation := range translations {
-		option.translations[translation.Translator().Locale()] = translation
+		option.translations[translation.Translator.Locale()] = translation
 	}
 }
 
 type withTranslation struct {
-	validationTranslation validator.ValidationTranslation
+	validationTranslation TranslationOption
 }
 
 // Apply implement ValidationOption interface function.
@@ -38,12 +43,12 @@ func (w withTranslation) Apply(options *validationOptions) {
 }
 
 // WithTranslation function for add new translation ValidationOption.
-func WithTranslation(translation validator.ValidationTranslation) ValidationOption {
+func WithTranslation(translation TranslationOption) ValidationOption {
 	return withTranslation{translation}
 }
 
 type withTranslations struct {
-	validationTranslations []validator.ValidationTranslation
+	validationTranslations []TranslationOption
 }
 
 // Apply implement ValidationOption interface function.
@@ -52,7 +57,7 @@ func (w withTranslations) Apply(options *validationOptions) {
 }
 
 // WithTranslations function for add multiple new translation ValidationOption.
-func WithTranslations(translations ...validator.ValidationTranslation) ValidationOption {
+func WithTranslations(translations ...TranslationOption) ValidationOption {
 	return withTranslations{validationTranslations: translations}
 }
 

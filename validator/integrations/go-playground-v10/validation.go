@@ -90,7 +90,9 @@ func NewValidation(options ...ValidationOption) validator.Validation {
 	v.registerTranslation(defaultTranslation)
 
 	for _, translation := range opt.translations {
-		v.registerTranslation(translation)
+		v.registerTranslation(NewValidationTranslation(translation.Translator, func(translator ut.Translator) error {
+			return translation.Register(v.validate, translator)
+		}))
 	}
 	return v
 }
