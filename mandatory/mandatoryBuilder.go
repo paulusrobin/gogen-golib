@@ -154,27 +154,34 @@ func (m Builder) WithDeviceType(deviceType string) Builder {
 	return m
 }
 
-// WithUser getter function to set User.
-func (m Builder) WithUser(ID string, email string) Builder {
+// WithUser getter function to set User ID.
+func (m Builder) WithUser(ID string) Builder {
+	m.user.login = true
+	m.user.id = ID
+	return m
+}
+
+// WithUserEmail getter function to set User Email.
+func (m Builder) WithUserEmail(ID string, email string) Builder {
 	m.user.login = true
 	m.user.id = ID
 	m.user.email = email
 	return m
 }
 
-// WithUserPhone getter function to set UserPhone.
-func (m Builder) WithUserPhone(ID string, email string, phone string) Builder {
+// WithUserPhone getter function to set User Phone.
+func (m Builder) WithUserPhone(ID string, phone string) Builder {
 	m.user.login = true
 	m.user.id = ID
-	m.user.email = email
 	m.user.phone = phone
 	return m
 }
 
-// WithPhone getter function to set Phone.
-func (m Builder) WithPhone(ID string, phone string) Builder {
+// WithUserEmailAndPhone getter function to set User Email and Phone.
+func (m Builder) WithUserEmailAndPhone(ID string, email string, phone string) Builder {
 	m.user.login = true
 	m.user.id = ID
+	m.user.email = email
 	m.user.phone = phone
 	return m
 }
