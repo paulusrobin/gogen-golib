@@ -34,8 +34,8 @@ func (d DeviceInfo) Code() string {
 }
 
 // Valid getter function to get code.
-func (d DeviceInfo) Valid() bool {
-	idx := int(d.id) - 1
+func (s DeviceType) Valid() bool {
+	idx := int(s) - 1
 	if idx < 0 || idx >= len(deviceInfos) {
 		return false
 	}
@@ -58,7 +58,7 @@ var deviceInfos = []DeviceInfo{
 
 // Info function to get DeviceInfo.
 func (s DeviceType) Info() DeviceInfo {
-	if int(s) < 0 || int(s) >= len(deviceInfos)-1 {
+	if !s.Valid() {
 		return DeviceInfo{
 			id:   0,
 			code: "Unknown",
