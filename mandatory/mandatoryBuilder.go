@@ -34,6 +34,22 @@ func NewMandatoryRequestBuilder() (Builder, error) {
 	}, nil
 }
 
+// NewMandatoryRequestBuilderFromRequest initialize builder object for Request.
+func NewMandatoryRequestBuilderFromRequest(request Request) (Builder, error) {
+	var err error
+	once.Do(func() {
+		parser, err = uaparser.NewFromBytes(bytes.NewBufferString(regexes).Bytes())
+	})
+	if err != nil {
+		return Builder{}, err
+	}
+
+	return Builder{
+		Request:  request,
+		uaParser: parser,
+	}, nil
+}
+
 // Build initialize builder object for Request.
 func (m Builder) Build() Request {
 	m.valid = true
@@ -139,7 +155,7 @@ func (m Builder) WithDeviceType(deviceType string) Builder {
 }
 
 // WithUser getter function to set User.
-func (m Builder) WithUser(ID uint64, email string) Builder {
+func (m Builder) WithUser(ID string, email string) Builder {
 	m.user.login = true
 	m.user.id = ID
 	m.user.email = email
@@ -147,7 +163,7 @@ func (m Builder) WithUser(ID uint64, email string) Builder {
 }
 
 // WithUserPhone getter function to set UserPhone.
-func (m Builder) WithUserPhone(ID uint64, email string, phone string) Builder {
+func (m Builder) WithUserPhone(ID string, email string, phone string) Builder {
 	m.user.login = true
 	m.user.id = ID
 	m.user.email = email
@@ -156,7 +172,7 @@ func (m Builder) WithUserPhone(ID uint64, email string, phone string) Builder {
 }
 
 // WithPhone getter function to set Phone.
-func (m Builder) WithPhone(ID uint64, phone string) Builder {
+func (m Builder) WithPhone(ID string, phone string) Builder {
 	m.user.login = true
 	m.user.id = ID
 	m.user.phone = phone

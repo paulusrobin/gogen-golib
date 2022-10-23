@@ -3,13 +3,13 @@ package mandatory
 // User object of mandatory User.
 type User struct {
 	login bool
-	id    uint64
+	id    string
 	email string
 	phone string
 }
 
 // ID getter function of mandatory user ID.
-func (u User) ID() uint64 {
+func (u User) ID() string {
 	return u.id
 }
 
