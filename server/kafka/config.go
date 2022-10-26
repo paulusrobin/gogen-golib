@@ -22,9 +22,6 @@ type Config struct {
 
 	// Name optional, kafka server name to be exposed.
 	Name string
-
-	// GracefulDuration optional, graceful duration to shut down the server, 30 seconds by default.
-	GracefulDuration time.Duration
 }
 
 func (c Config) logPrefix() string {
@@ -35,8 +32,5 @@ func (c Config) logPrefix() string {
 }
 
 func sanitizeConfig(cfg Config) Config {
-	if cfg.GracefulDuration == 0 {
-		cfg.GracefulDuration = defaultGracefulDuration
-	}
 	return cfg
 }

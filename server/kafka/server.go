@@ -7,7 +7,6 @@ import (
 	"os"
 	"strings"
 	"sync"
-	"time"
 )
 
 type (
@@ -85,7 +84,6 @@ func (s *kafkaServer) Run() error {
 
 // Shutdown function to close http server.
 func (s *kafkaServer) Shutdown() error {
-	time.Sleep(s.cfg.GracefulDuration)
 	if err := s.client.Close(); err != nil {
 		return err
 	}
